@@ -1,0 +1,18 @@
+{
+  "id": "app-20261011222726-0010",
+  "name": "indegree-bench-no-broadcast-1",
+  "attempts": [
+    {
+      "startTime": "2026-10-11T22:27:25.157GMT",
+      "endTime": "2026-10-11T22:28:04.066GMT",
+      "lastUpdated": "2026-10-11T22:28:04.092GMT",
+      "duration": 38909,
+      "sparkUser": "spark",
+      "completed": true,
+      "appSparkVersion": "3.5.9",
+      "startTimeEpoch": 1791757645157,
+      "endTimeEpoch": 1791757684066,
+      "lastUpdatedEpoch": 1791757684092
+    }
+  ]
+}

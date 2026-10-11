@@ -1,0 +1,56 @@
+{
+  "baseline": {
+    "description": "cache on, broadcast join on",
+    "runs": 3,
+    "join_strategies": [
+      "Inner: BroadcastHashJoin, LeftOuter: BroadcastHashJoin"
+    ],
+    "total_seconds_median": 37.21,
+    "total_seconds_min": 35.27,
+    "total_seconds_max": 38.26,
+    "step_seconds_median": {
+      "classify every line": 14.83,
+      "count edges": 10.89,
+      "count distinct nodes": 3.54,
+      "in-degree (shuffle)": 2.28,
+      "rank top N + join out-degree": 2.63,
+      "distribution statistics": 2.16
+    }
+  },
+  "no-broadcast": {
+    "description": "broadcast join off (sort-merge join)",
+    "runs": 3,
+    "join_strategies": [
+      "Inner: SortMergeJoin, LeftOuter: SortMergeJoin"
+    ],
+    "total_seconds_median": 36.05,
+    "total_seconds_min": 34.65,
+    "total_seconds_max": 39.8,
+    "step_seconds_median": {
+      "classify every line": 14.27,
+      "count edges": 10.4,
+      "count distinct nodes": 3.02,
+      "in-degree (shuffle)": 2.35,
+      "rank top N + join out-degree": 3.68,
+      "distribution statistics": 2.28
+    }
+  },
+  "no-cache": {
+    "description": "cache off",
+    "runs": 3,
+    "join_strategies": [
+      "Inner: BroadcastHashJoin, LeftOuter: BroadcastHashJoin"
+    ],
+    "total_seconds_median": 77.87,
+    "total_seconds_min": 74.76,
+    "total_seconds_max": 83.2,
+    "step_seconds_median": {
+      "classify every line": 14.56,
+      "count edges": 7.43,
+      "count distinct nodes": 17.9,
+      "in-degree (shuffle)": 8.76,
+      "rank top N + join out-degree": 19.36,
+      "distribution statistics": 9.69
+    }
+  }
+}

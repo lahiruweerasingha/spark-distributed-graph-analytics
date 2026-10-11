@@ -1,0 +1,298 @@
+{
+  "run_tag": "bench-no-broadcast-3",
+  "application_id": "app-20261011222849-0012",
+  "settings": {
+    "cache": true,
+    "broadcast": false,
+    "top_n": 50
+  },
+  "join_strategy": {
+    "LeftOuter": "SortMergeJoin",
+    "Inner": "SortMergeJoin"
+  },
+  "published": {
+    "nodes": 685230,
+    "edges": 7600595
+  },
+  "parsed": {
+    "nodes": 685230,
+    "edges": 7600595
+  },
+  "lines": {
+    "comment": 4,
+    "blank": 0,
+    "edge": 7600595,
+    "malformed": 0
+  },
+  "distribution": {
+    "nodes_with_inbound": 617094,
+    "total_edges": 7600595,
+    "mean": 12.316754011544433,
+    "stddev": 300.0874168302099,
+    "median": 2.0,
+    "p99": 111.0,
+    "max": 84208,
+    "max_over_median": 42104.0
+  },
+  "top": [
+    {
+      "node_id": 438238,
+      "in_degree": 84208,
+      "out_degree": 82
+    },
+    {
+      "node_id": 401873,
+      "in_degree": 48205,
+      "out_degree": 22
+    },
+    {
+      "node_id": 184094,
+      "in_degree": 44290,
+      "out_degree": 35
+    },
+    {
+      "node_id": 768,
+      "in_degree": 44101,
+      "out_degree": 10
+    },
+    {
+      "node_id": 927,
+      "in_degree": 44067,
+      "out_degree": 27
+    },
+    {
+      "node_id": 184142,
+      "in_degree": 44041,
+      "out_degree": 25
+    },
+    {
+      "node_id": 184279,
+      "in_degree": 44037,
+      "out_degree": 16
+    },
+    {
+      "node_id": 184332,
+      "in_degree": 44034,
+      "out_degree": 16
+    },
+    {
+      "node_id": 33,
+      "in_degree": 44032,
+      "out_degree": 21
+    },
+    {
+      "node_id": 743,
+      "in_degree": 44022,
+      "out_degree": 7
+    },
+    {
+      "node_id": 210305,
+      "in_degree": 43908,
+      "out_degree": 22
+    },
+    {
+      "node_id": 210376,
+      "in_degree": 43878,
+      "out_degree": 189
+    },
+    {
+      "node_id": 272919,
+      "in_degree": 42828,
+      "out_degree": 64
+    },
+    {
+      "node_id": 66244,
+      "in_degree": 34943,
+      "out_degree": 37
+    },
+    {
+      "node_id": 66909,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 68946,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 68947,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 68948,
+      "in_degree": 34943,
+      "out_degree": 27
+    },
+    {
+      "node_id": 68949,
+      "in_degree": 34943,
+      "out_degree": 36
+    },
+    {
+      "node_id": 77284,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 86237,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 86238,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 86239,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 95551,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 95552,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 96070,
+      "in_degree": 34943,
+      "out_degree": 19
+    },
+    {
+      "node_id": 601656,
+      "in_degree": 30744,
+      "out_degree": 37
+    },
+    {
+      "node_id": 319209,
+      "in_degree": 21177,
+      "out_degree": 4
+    },
+    {
+      "node_id": 571447,
+      "in_degree": 16696,
+      "out_degree": 7
+    },
+    {
+      "node_id": 571448,
+      "in_degree": 16696,
+      "out_degree": 13
+    },
+    {
+      "node_id": 571451,
+      "in_degree": 16686,
+      "out_degree": 1
+    },
+    {
+      "node_id": 570985,
+      "in_degree": 16682,
+      "out_degree": 9
+    },
+    {
+      "node_id": 284306,
+      "in_degree": 14738,
+      "out_degree": 46
+    },
+    {
+      "node_id": 299039,
+      "in_degree": 14732,
+      "out_degree": 2
+    },
+    {
+      "node_id": 299040,
+      "in_degree": 14092,
+      "out_degree": 7
+    },
+    {
+      "node_id": 313077,
+      "in_degree": 14028,
+      "out_degree": 1
+    },
+    {
+      "node_id": 451016,
+      "in_degree": 13734,
+      "out_degree": 53
+    },
+    {
+      "node_id": 316792,
+      "in_degree": 10971,
+      "out_degree": 1
+    },
+    {
+      "node_id": 623254,
+      "in_degree": 9157,
+      "out_degree": 73
+    },
+    {
+      "node_id": 623267,
+      "in_degree": 9078,
+      "out_degree": 64
+    },
+    {
+      "node_id": 477985,
+      "in_degree": 8526,
+      "out_degree": 42
+    },
+    {
+      "node_id": 477172,
+      "in_degree": 8508,
+      "out_degree": 12
+    },
+    {
+      "node_id": 479054,
+      "in_degree": 8508,
+      "out_degree": 71
+    },
+    {
+      "node_id": 481959,
+      "in_degree": 8508,
+      "out_degree": 12
+    },
+    {
+      "node_id": 627015,
+      "in_degree": 8465,
+      "out_degree": 10
+    },
+    {
+      "node_id": 613955,
+      "in_degree": 8430,
+      "out_degree": 24
+    },
+    {
+      "node_id": 623783,
+      "in_degree": 8430,
+      "out_degree": 10
+    },
+    {
+      "node_id": 273278,
+      "in_degree": 7598,
+      "out_degree": 25
+    },
+    {
+      "node_id": 280873,
+      "in_degree": 7595,
+      "out_degree": 2
+    },
+    {
+      "node_id": 417965,
+      "in_degree": 7500,
+      "out_degree": 1
+    }
+  ],
+  "timings_seconds": {
+    "classify every line": 17.13,
+    "count edges": 10.5,
+    "count distinct nodes": 3.02,
+    "in-degree (shuffle)": 2.07,
+    "rank top N + join out-degree": 4.75,
+    "distribution statistics": 2.33
+  },
+  "total_action_seconds": 39.8
+}

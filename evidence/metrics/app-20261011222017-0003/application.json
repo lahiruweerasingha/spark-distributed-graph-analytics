@@ -1,0 +1,18 @@
+{
+  "id": "app-20261011222017-0003",
+  "name": "indegree-default",
+  "attempts": [
+    {
+      "startTime": "2026-10-11T22:20:16.656GMT",
+      "endTime": "2026-10-11T22:20:52.631GMT",
+      "lastUpdated": "2026-10-11T22:20:52.674GMT",
+      "duration": 35975,
+      "sparkUser": "spark",
+      "completed": true,
+      "appSparkVersion": "3.5.9",
+      "startTimeEpoch": 1791757216656,
+      "endTimeEpoch": 1791757252631,
+      "lastUpdatedEpoch": 1791757252674
+    }
+  ]
+}

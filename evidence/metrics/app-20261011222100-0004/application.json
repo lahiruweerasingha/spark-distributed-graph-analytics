@@ -1,0 +1,18 @@
+{
+  "id": "app-20261011222100-0004",
+  "name": "indegree-bench-baseline-1",
+  "attempts": [
+    {
+      "startTime": "2026-10-11T22:20:59.445GMT",
+      "endTime": "2026-10-11T22:21:40.475GMT",
+      "lastUpdated": "2026-10-11T22:21:40.522GMT",
+      "duration": 41030,
+      "sparkUser": "spark",
+      "completed": true,
+      "appSparkVersion": "3.5.9",
+      "startTimeEpoch": 1791757259445,
+      "endTimeEpoch": 1791757300475,
+      "lastUpdatedEpoch": 1791757300522
+    }
+  ]
+}
