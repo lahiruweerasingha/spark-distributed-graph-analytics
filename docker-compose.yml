@@ -1,0 +1,81 @@
+# Spark standalone cluster: 1 master, 2 workers (2 cores / 2 GB each), and a
+# history server that keeps every finished job's DAG and stage metrics.
+#
+#   make up     start the cluster
+#   make run    in-degree analysis of web-BerkStan on the cluster
+#   make down   stop (event logs are kept in a named volume)
+#
+# UIs: master :8080 · history :18080 · driver :4040 (only while a job runs)
+
+name: spark-graph-analytics
+
+x-spark: &spark
+  image: spark-graph:0.1.0
+  build:
+    context: .
+    dockerfile: docker/Dockerfile
+  volumes:
+    - ./:/app                  # code, tests, evidence
+    - ./data:/data:ro          # the SNAP edge list (gitignored)
+    - spark-events:/opt/spark-events
+  environment: &spark-env
+    SPARK_NO_DAEMONIZE: "true"
+  networks: [spark-net]
+
+x-worker: &worker
+  <<: *spark
+  command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+  environment:
+    <<: *spark-env
+    # Not a physical reservation: the number of concurrent task slots and the
+    # memory each worker offers. Two small workers make the distribution
+    # visible in the UI rather than everything landing on one executor.
+    SPARK_WORKER_CORES: 2
+    SPARK_WORKER_MEMORY: 2g
+  depends_on:
+    spark-master: {condition: service_healthy}
+
+services:
+  spark-master:
+    <<: *spark
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
+      --host spark-master --port 7077 --webui-port 8080
+    ports: ["8080:8080", "7077:7077", "4040:4040"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080 >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+
+  spark-worker-1:
+    <<: *worker
+    ports: ["8181:8081"]
+
+  spark-worker-2:
+    <<: *worker
+    ports: ["8182:8081"]
+
+  # The driver UI on :4040 disappears when a job ends (this one runs in under a
+  # minute); the history server replays the event log afterwards.
+  spark-history:
+    <<: *spark
+    command: /opt/spark/bin/spark-class org.apache.spark.deploy.history.HistoryServer
+    environment:
+      <<: *spark-env
+      SPARK_HISTORY_OPTS: -Dspark.history.fs.logDirectory=file:/opt/spark-events
+    ports: ["18080:18080"]
+    depends_on:
+      spark-master: {condition: service_healthy}
+
+  runner:
+    <<: *spark
+    profiles: [tools]
+    command: ["python3", "--version"]
+
+volumes:
+  spark-events:
+
+networks:
+  spark-net:
