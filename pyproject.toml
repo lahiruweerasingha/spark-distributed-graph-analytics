@@ -1,0 +1,21 @@
+[project]
+name = "spark-distributed-graph-analytics"
+version = "0.1.0"
+description = "In-degree analysis of a 7.6-million-edge web graph on a Spark cluster."
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Lahiru Weerasingha" }]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"   # the Spark image runs Python 3.10
+src = ["src", "jobs", "scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
+filterwarnings = ["ignore::DeprecationWarning"]

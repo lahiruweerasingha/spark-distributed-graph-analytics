@@ -1,0 +1,6 @@
+# Tooling for tests and linting. The cluster image (docker/Dockerfile) has its
+# own Spark; CI installs the matching PySpark from PyPI.
+pyspark==3.5.9
+pytest==9.1.1
+ruff==0.17.0
+pre-commit==4.6.2
