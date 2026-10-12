@@ -10,9 +10,9 @@ the median means one partition did most of the work.
 
 | Stage | Name | Status | Tasks | Duration (s) | Task time median / max (s) | Input (MB) | Shuffle read (MB) | Shuffle write (MB) |
 |---:|---|---|---:|---:|---|---:|---:|---:|
-| 0 | collect at /app/src/graph_analytics/inde | COMPLETE | 4 | 8.93 | 7.89 / 8.07 | 110.5 | 0.0 | 0.0 |
-| 1 | collect at /app/src/graph_analytics/inde | SKIPPED | 4 | - | - | 0.0 | 0.0 | 0.0 |
-| 2 | collect at /app/src/graph_analytics/inde | COMPLETE | 1 | 0.32 | 0.18 / 0.18 | 0.0 | 0.0 | 0.0 |
+| 0 | collect at /app/src/graph_analytics/indegree.py:67 | COMPLETE | 4 | 8.93 | 7.89 / 8.07 | 110.5 | 0.0 | 0.0 |
+| 1 | collect at /app/src/graph_analytics/indegree.py:67 | SKIPPED | 4 | - | - | 0.0 | 0.0 | 0.0 |
+| 2 | collect at /app/src/graph_analytics/indegree.py:67 | COMPLETE | 1 | 0.32 | 0.18 / 0.18 | 0.0 | 0.0 | 0.0 |
 | 3 | count at NativeMethodAccessorImpl.java:0 | COMPLETE | 4 | 9.85 | 9.24 / 9.71 | 110.5 | 0.0 | 0.0 |
 | 4 | count at NativeMethodAccessorImpl.java:0 | COMPLETE | 4 | 0.23 | 0.15 / 0.15 | 25.0 | 0.0 | 0.0 |
 | 5 | count at NativeMethodAccessorImpl.java:0 | SKIPPED | 4 | - | - | 0.0 | 0.0 | 0.0 |
@@ -60,10 +60,10 @@ the median means one partition did most of the work.
 | 47 | collect at /app/jobs/run_indegree.py:48 | SKIPPED | 4 | - | - | 0.0 | 0.0 | 0.0 |
 | 48 | collect at /app/jobs/run_indegree.py:48 | COMPLETE | 1 | 0.11 | 0.07 / 0.07 | 0.0 | 0.0 | 0.0 |
 | 49 | count at NativeMethodAccessorImpl.java:0 | SKIPPED | 4 | - | - | 0.0 | 0.0 | 0.0 |
-| 50 | first at /app/src/graph_analytics/indegr | COMPLETE | 16 | 1.9 | 0.16 / 1.15 | 3.1 | 0.0 | 0.1 |
+| 50 | first at /app/src/graph_analytics/indegree.py:146 | COMPLETE | 16 | 1.9 | 0.16 / 1.15 | 3.1 | 0.0 | 0.1 |
 | 51 | count at NativeMethodAccessorImpl.java:0 | SKIPPED | 4 | - | - | 0.0 | 0.0 | 0.0 |
-| 52 | first at /app/src/graph_analytics/indegr | SKIPPED | 16 | - | - | 0.0 | 0.0 | 0.0 |
-| 53 | first at /app/src/graph_analytics/indegr | COMPLETE | 1 | 0.14 | 0.12 / 0.12 | 0.0 | 0.1 | 0.0 |
+| 52 | first at /app/src/graph_analytics/indegree.py:146 | SKIPPED | 16 | - | - | 0.0 | 0.0 | 0.0 |
+| 53 | first at /app/src/graph_analytics/indegree.py:146 | COMPLETE | 1 | 0.14 | 0.12 / 0.12 | 0.0 | 0.1 | 0.0 |
 
 Total shuffle written: 16.3 MB across 13 stages.
 

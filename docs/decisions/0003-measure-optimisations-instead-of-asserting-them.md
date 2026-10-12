@@ -15,7 +15,9 @@ The original version of this analysis described the broadcast join as "the
 single highest-leverage optimisation", without measuring it. There is a reason
 to doubt that: Spark broadcasts small tables automatically (below
 `spark.sql.autoBroadcastJoinThreshold`, 10 MB by default), so an explicit hint
-on a 50-row table may change nothing.
+on a 50-row table may change nothing. (The benchmark compares the hint with
+all broadcasting switched off; it does not separate the hint from Spark's
+automatic broadcast, so that narrower question stays open.)
 
 ## Decision
 
@@ -38,7 +40,7 @@ Driver-side time in actions, median of 3 runs per setting:
 | broadcast join off (sort-merge join) | 36.0 | 34.6–39.8 | -3% | Inner: SortMergeJoin, LeftOuter: SortMergeJoin |
 
 - **Caching is what matters.** Without it every action re-reads and re-parses the 110 MB text file, and the job takes 2.1 times as long. The node count goes from 3.5 s to 17.9 s.
-- **The broadcast join makes no measurable difference to the total.** On its own step it saves about 1.1 s (2.63 s vs 3.68 s), which is inside the run-to-run noise of the whole job. Without it Spark plans 54 stages instead of 35 (counting skipped ones) but shuffles the same 16.3 MB in total ([baseline](../../evidence/metrics/app-20261011222100-0004/SUMMARY.md), [no broadcast](../../evidence/metrics/app-20261011222726-0010/SUMMARY.md); first run of each setting): the out-degree table is already partitioned by node id from its own aggregation, so the sort-merge join never reshuffles the large side.
+- **The broadcast join makes no measurable difference to the total.** On its own step it saves about 1.1 s (2.63 s vs 3.68 s), which is inside the run-to-run noise of the whole job. Without it Spark plans 54 stages instead of 35 (counting skipped ones). It writes the same 16.3 MB of shuffle data but reads 21.2 MB instead of 16.3 MB ([baseline](../../evidence/metrics/app-20261011222100-0004/SUMMARY.md), [no broadcast](../../evidence/metrics/app-20261011222726-0010/SUMMARY.md); first run of each setting). The out-degree table is already partitioned by node id from its own aggregation, so the sort-merge join does not repartition it, but it reads that table's 4.9 MB of shuffle output a second time.
 
 ## Consequences
 

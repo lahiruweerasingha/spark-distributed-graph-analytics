@@ -4,7 +4,7 @@ Driver-side time spent in actions, median of repeated runs on the same cluster.
 
 | Setting | Runs | Joins used | Median total (s) | Range (s) | vs baseline |
 |---|---:|---|---:|---|---:|
-| cache on, broadcast join on | 3 | Inner: BroadcastHashJoin, LeftOuter: BroadcastHashJoin | 37.2 | 35.3-38.3 | +0% |
+| cache on, broadcast join on | 3 | Inner: BroadcastHashJoin, LeftOuter: BroadcastHashJoin | 37.2 | 35.3-38.3 | - |
 | cache off | 3 | Inner: BroadcastHashJoin, LeftOuter: BroadcastHashJoin | 77.9 | 74.8-83.2 | +109% |
 | broadcast join off (sort-merge join) | 3 | Inner: SortMergeJoin, LeftOuter: SortMergeJoin | 36.0 | 34.6-39.8 | -3% |
 
