@@ -155,3 +155,17 @@ def test_distribution_stats_by_hand(edges):
     assert s["median"] == pytest.approx(2.0)
     assert s["max"] == 4
     assert s["max_over_median"] == pytest.approx(2.0)
+
+
+def test_line_classification_edge_cases(spark, tmp_path):
+    f = tmp_path / "edges.txt"
+    f.write_text(
+        "# Nodes: 3 Edges: 2\n"
+        "   # an indented comment\n"
+        "  1\t2  \n"  # surrounding whitespace is still an edge
+        "2 3\n"  # a space instead of a tab is still an edge
+        "1\t2\t3\n"  # three tokens: malformed
+        "x\t1\n"  # not an integer: malformed
+        "   \n"  # whitespace only: blank
+    )
+    assert g.line_report(spark, str(f)) == {"comment": 2, "blank": 1, "edge": 2, "malformed": 2}

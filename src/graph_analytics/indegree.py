@@ -52,7 +52,7 @@ def _classified_lines(spark: SparkSession, path: str) -> DataFrame:
     src = parts.getItem(0).cast("long")
     dst = parts.getItem(1).cast("long")
     kind = (
-        F.when(F.col("value").startswith("#"), "comment")
+        F.when(trimmed.startswith("#"), "comment")
         .when(trimmed == "", "blank")
         .when((F.size(parts) == 2) & src.isNotNull() & dst.isNotNull(), "edge")
         .otherwise("malformed")
@@ -97,7 +97,8 @@ def in_degree(edges: DataFrame) -> DataFrame:
     """In-degree of every node with at least one incoming edge.
 
     A wide transformation: rows sharing a destination must meet on one
-    executor, so Spark shuffles here. This is the job's most expensive step.
+    executor, so Spark shuffles here: the job's main shuffle. (Reading and
+    parsing the text file costs far more; see evidence/BENCHMARK.md.)
     """
     return edges.groupBy(F.col("dst").alias("node_id")).agg(F.count(F.lit(1)).alias("in_degree"))
 
@@ -133,7 +134,7 @@ def enrich_with_out_degree(top: DataFrame, outs: DataFrame, broadcast: bool = Tr
     )
 
 
-def distribution_stats(degrees: DataFrame) -> dict[str, float]:
+def distribution_stats(degrees: DataFrame) -> dict[str, float | int | None]:
     """Exact summary of the in-degree distribution (nodes with inbound edges)."""
     row = degrees.agg(
         F.count(F.lit(1)).alias("nodes_with_inbound"),

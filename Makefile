@@ -31,7 +31,8 @@ help:
 	@echo "make up         build the image and start the cluster"
 	@echo "make data       download the SNAP web-BerkStan edge list into data/"
 	@echo "make run        run the analysis on the cluster, then capture its metrics"
-	@echo "make metrics    capture the latest run's metrics from the history server"
+	@echo "make metrics    capture a run's metrics from the history server"
+	@echo "                (default run; or RUN_TAG=bench-baseline-1 / APP_ID=app-... make metrics)"
 	@echo "make benchmark  measure the effect of caching and the broadcast join"
 	@echo "make test       run the tests in the Spark image"
 	@echo "make lint       ruff lint + format check (needs ruff installed)"
@@ -54,11 +55,14 @@ run:
 	$(EXEC) -e RUN_TAG=default spark-master $(SPARK_SUBMIT)
 	$(MAKE) metrics
 
+# RUN_TAG / APP_ID from the make command line pick which run is captured.
 metrics:
-	$(RUNNER) python3 scripts/capture_metrics.py
+	$(COMPOSE) run --rm --no-deps -e RUN_TAG=$(RUN_TAG) -e APP_ID=$(APP_ID) runner python3 scripts/capture_metrics.py
 
 # Each setting is run BENCHMARK_REPEATS times; the summary uses the median.
+# Earlier benchmark runs are removed first so they cannot mix into the medians.
 benchmark:
+	rm -f evidence/runs/bench-*.json
 	for cfg in "1 1 baseline" "0 1 no-cache" "1 0 no-broadcast"; do \
 		set -- $$cfg; \
 		for i in $$(seq 1 $(BENCHMARK_REPEATS)); do \

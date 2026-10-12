@@ -28,7 +28,7 @@ from pathlib import Path
 HISTORY = os.getenv("HISTORY_URL", "http://spark-history:18080")
 API = f"{HISTORY}/api/v1"
 EVIDENCE = Path(os.getenv("EVIDENCE_DIR", "/app/evidence"))
-RUN_TAG = os.getenv("RUN_TAG", "default")
+RUN_TAG = os.getenv("RUN_TAG") or "default"
 WAIT_SECONDS = 120
 
 
@@ -58,6 +58,8 @@ def wait_for(app_id: str) -> dict:
         except urllib.error.HTTPError as error:
             if error.code != 404:
                 raise
+        except urllib.error.URLError:
+            pass  # history server still starting
         if time.monotonic() > deadline:
             raise SystemExit(f"{app_id} not in the history server after {WAIT_SECONDS} s")
         time.sleep(3)
@@ -76,7 +78,7 @@ def task_spread(app_id: str, stage: dict) -> tuple[float, float] | None:
 
 
 def main() -> int:
-    app_id = os.getenv("APP_ID")
+    app_id = os.getenv("APP_ID") or None
     if not app_id:
         run = json.loads((EVIDENCE / "runs" / f"{RUN_TAG}.json").read_text())
         app_id = run["application_id"]
@@ -118,7 +120,7 @@ def main() -> int:
         duration_text = seconds(s) if seconds(s) is not None else "-"
         spread_text = f"{spread[0]:.2f} / {spread[1]:.2f}" if spread else "-"
         lines.append(
-            f"| {s['stageId']} | {s['name'][:40]} | {s['status']} | {s['numTasks']} | "
+            f"| {s['stageId']} | {s['name']} | {s['status']} | {s['numTasks']} | "
             f"{duration_text} | {spread_text} | "
             f"{s.get('inputBytes', 0) / 1e6:.1f} | {s.get('shuffleReadBytes', 0) / 1e6:.1f} | "
             f"{s.get('shuffleWriteBytes', 0) / 1e6:.1f} |"

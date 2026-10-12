@@ -24,8 +24,10 @@ LABELS = {
 def main() -> None:
     runs = defaultdict(list)
     for path in sorted((EVIDENCE / "runs").glob("bench-*.json")):
-        name = re.match(r"bench-(.+)-\d+\.json", path.name).group(1)
-        runs[name].append(json.loads(path.read_text()))
+        match = re.fullmatch(r"bench-(.+)-\d+\.json", path.name)
+        if not match:  # not a benchmark run file
+            continue
+        runs[match.group(1)].append(json.loads(path.read_text()))
 
     summary = {}
     for name, items in runs.items():
@@ -63,7 +65,8 @@ def main() -> None:
     ]
     for name in order:
         s = summary[name]
-        delta = f"{(s['total_seconds_median'] / base - 1):+.0%}" if base else "-"
+        is_base = name == "baseline"
+        delta = f"{(s['total_seconds_median'] / base - 1):+.0%}" if base and not is_base else "-"
         lines.append(
             f"| {s['description']} | {s['runs']} | {'; '.join(s['join_strategies'])} | "
             f"{s['total_seconds_median']:.1f} | {s['total_seconds_min']:.1f}-"
